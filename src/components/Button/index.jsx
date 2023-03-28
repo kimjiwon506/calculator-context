@@ -4,27 +4,29 @@ import * as Styled from './styled';
 
 export default function Button() {
     const { calc, setCalc, shouldSetNumberRef, prevNumberRef } = useContext(CalculatorContext)
+    
     const onClick = (item) => {
       if(item.type === "number") {
         setCalc((prev) => { 
-          // prev.inputValue
-          // const inputValue = prev.inputValue.replace(/(^0+)/, "") + item.text
-          const inputValue = shouldSetNumberRef.current ? calc.inputValue :  prev.inputValue.replace(/(^0+)/, "") + item.text
+          const inputValue = shouldSetNumberRef.current ? item.text :  prev.inputValue.replace(/(^0+)/, "") + item.text;
+          shouldSetNumberRef.current = false;
           return {
             ...calc,
             inputValue
           }
         })
       }
+
       if(item.type === "operator") {
-        const prevNumber = prevNumberRef.current;
         switch(item.text){
           case "+" : 
-          return prevNumber + calc.inputValue
+          prevNumberRef.current = Number(prevNumberRef.current) + Number(calc.inputValue);
+          shouldSetNumberRef.current = true;
+          setCalc({...calc, inputValue: prevNumberRef.current});
         }
-        shouldSetNumberRef.current = true;
       }
     }
+    
     return (
       <>
         {calc.buttonArray.map((item, index) => 
