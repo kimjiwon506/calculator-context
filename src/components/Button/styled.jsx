@@ -13,11 +13,22 @@ export const _Button = styled.button`
   color: ${(props) => props.color};
   background-color: ${(props) => props.background};
   text-align: center;
+
+  &.zero {
+    grid-column:1 / span 2;
+    border-radius: 45px;
+
+    &::after {
+      padding-bottom: 50%;
+    }
+  }
+
   &::after {
     display: block;
     content: "";
     padding-bottom: 100%;
   }
+
   div {
     display: inline-block;
     position: absolute;

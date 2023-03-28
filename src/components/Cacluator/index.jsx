@@ -4,11 +4,10 @@ import * as Styled from "./styled";
 import Button from "./../Button/index";
 import Input from "./../Input/index";
 
-function Calculator({calc, onClick}) {
-
-    const handleClick = (item) => {
-        onClick(item)
-    }
+function Calculator({ calc, onClick }) {
+  const handleClick = (item) => {
+    onClick(item);
+  };
 
   return (
     <Styled._Container>
@@ -16,7 +15,11 @@ function Calculator({calc, onClick}) {
         <Input calc={calc} />
         <Styled._ButtonWrap>
           {calc.buttonArray.map((item, index) => (
-            <Button item={item} index={index} onClick={()=>handleClick(item)} />
+            <Button
+              item={item}
+              index={index}
+              onClick={() => handleClick(item)}
+            />
           ))}
         </Styled._ButtonWrap>
       </Styled._Wrap>
