@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { CalculatorContext } from "../../context/calculator";
 import * as Styled from './styled';
 
-function Input() {
-    const { calc } = useContext(CalculatorContext)
+function Input({calc}) {
+    // const { calc } = useContext(CalculatorContext)
     return (
         <div>
             <Styled._Input type="text" value={calc.inputValue || ""} readOnly />  
