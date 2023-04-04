@@ -47,6 +47,8 @@ export default function CalculatorContainer() {
             shouldSetNumberRef.current = true;
             setCalc({ ...calc, inputValue: prevNumberRef.current === 0 ? '0' : prevNumberRef.current });
             break;
+        default:
+          return;
       }
     }
     if (item.text === "C") {
