@@ -10,7 +10,7 @@ const CalculatorProvider = ({ children }) => {
     const shouldSetNumberRef = useRef(false);
     // 이전값을 담을 수 있도록 한다.
     const prevNumberRef = useRef(0);
-    const [ inputValue, setInputValue ] = useState('')
+    const [ inputValue, setInputValue ] = useState(0)
     const [ calc , setCalc ] = useState({
         inputValue: '0',
         buttonArray: [
