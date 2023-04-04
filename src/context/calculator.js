@@ -9,7 +9,7 @@ const CalculatorProvider = ({ children }) => {
     // 연산자 클릭시 전환될 수 있도록 한다.
     const shouldSetNumberRef = useRef(false);
     // 이전값을 담을 수 있도록 한다.
-    const prevNumberRef = useRef(null);
+    const prevNumberRef = useRef(0);
     const [ inputValue, setInputValue ] = useState('')
     const [ calc , setCalc ] = useState({
         inputValue: '0',

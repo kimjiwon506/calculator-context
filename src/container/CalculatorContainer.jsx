@@ -29,6 +29,12 @@ export default function CalculatorContainer() {
           shouldSetNumberRef.current = true;
           setCalc({ ...calc, inputValue: prevNumberRef.current });
           break;
+        case "-":
+          prevNumberRef.current = prevNumberRef.current === 0 ? Number(calc.inputValue) :
+            Number(prevNumberRef.current) - Number(calc.inputValue);
+          shouldSetNumberRef.current = true;
+          setCalc({ ...calc, inputValue: prevNumberRef.current });
+          break;
       }
     }
     if (item.text === "C") {
