@@ -101,7 +101,7 @@ export default function CalculatorContainer() {
       shouldSetNumberRef.current = true;
       setCalc({
         ...calc,
-        inputValue: prevNumberRef.current === 0 ? "0" : prevNumberRef.current,
+        inputValue: prevNumberRef.current === 0 ? "0" : prevNumberRef.current
       });
     }
     if (item.text === "C") {
