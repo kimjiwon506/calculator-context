@@ -10,7 +10,8 @@ const CalculatorProvider = ({ children }) => {
     const shouldSetNumberRef = useRef(false);
     // 이전값을 담을 수 있도록 한다.
     const prevNumberRef = useRef(0);
-    const [ inputValue, setInputValue ] = useState(0)
+    const currentOperatorRef = useRef(null);
+    const [ inputValue, setInputValue ] = useState(0);
     const [ calc , setCalc ] = useState({
         inputValue: '0',
         buttonArray: [
@@ -36,7 +37,8 @@ const CalculatorProvider = ({ children }) => {
         ]
     })
 
-    const value = { inputValue, setInputValue, calc, setCalc, shouldSetNumberRef, prevNumberRef }
+    
+    const value = { inputValue, setInputValue, calc, setCalc, shouldSetNumberRef, prevNumberRef, currentOperatorRef }
     
     return (
         <CalculatorContext.Provider value={value} >{children}</CalculatorContext.Provider>

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { CalculatorContext } from "../context/calculator";
 
 export default function CalculatorContainer() {
-  const { calc, setCalc, shouldSetNumberRef, prevNumberRef } =
+  const { calc, setCalc, shouldSetNumberRef, prevNumberRef, currentOperatorRef } =
     useContext(CalculatorContext);
 
   const onClick = (item) => {
@@ -21,35 +21,51 @@ export default function CalculatorContainer() {
         };
       });
     }
+
+    const calculatorOperate = (prev, cur, oper) => {
+      const prevNumber = Number(prev);
+      const currentNumber = Number(cur);
+      if(oper === "+") {
+        return prevNumber + currentNumber
+      }
+      if(oper === "-") {
+        return prevNumber - currentNumber
+      }
+      if(oper === "x") {
+        return prevNumber * currentNumber
+      }
+      if(oper === "÷") {
+        return prevNumber / currentNumber
+      }
+    }
+
     if (item.type === "operator") {
       switch (item.text) {
         case "+":
-          prevNumberRef.current =
-            Number(prevNumberRef.current) + Number(calc.inputValue);
-          shouldSetNumberRef.current = true;
-          setCalc({ ...calc, inputValue: prevNumberRef.current === 0 ? '0' : prevNumberRef.current });
+          prevNumberRef.current = calculatorOperate(Number(prevNumberRef.current),Number(calc.inputValue),"+")
           break;
         case "-":
           prevNumberRef.current = 
-          prevNumberRef.current === 0 ? calc.inputValue : Number(prevNumberRef.current) - Number(calc.inputValue);
-          shouldSetNumberRef.current = true;
-          setCalc({ ...calc, inputValue: prevNumberRef.current === 0 ? '0' : prevNumberRef.current });
+          prevNumberRef.current === 0 ? calc.inputValue : calculatorOperate(Number(prevNumberRef.current),Number(calc.inputValue),"-");
           break;
         case "x":
           prevNumberRef.current = 
-          prevNumberRef.current === 0 ? calc.inputValue : Number(prevNumberRef.current) * Number(calc.inputValue);
-          shouldSetNumberRef.current = true;
-          setCalc({ ...calc, inputValue: prevNumberRef.current === 0 ? '0' : prevNumberRef.current });
+          prevNumberRef.current === 0 ? calc.inputValue : calculatorOperate(Number(prevNumberRef.current),Number(calc.inputValue),"x");
           break;
         case "÷":
             prevNumberRef.current = 
-            prevNumberRef.current === 0 ? calc.inputValue : Number(prevNumberRef.current) / Number(calc.inputValue);
-            shouldSetNumberRef.current = true;
-            setCalc({ ...calc, inputValue: prevNumberRef.current === 0 ? '0' : prevNumberRef.current });
+            prevNumberRef.current === 0 ? calc.inputValue : calculatorOperate(Number(prevNumberRef.current),Number(calc.inputValue),"÷");
+            break;
+        case "=":
+            let operate = currentOperatorRef.current;
+            prevNumberRef.current = prevNumberRef.current === 0 ? calc.inputValue : calculatorOperate(Number(prevNumberRef.current),Number(calc.inputValue), operate);
             break;
         default:
           return;
       }
+      currentOperatorRef.current = item.text;
+      shouldSetNumberRef.current = true;
+      setCalc({ ...calc, inputValue: prevNumberRef.current === 0 ? '0' : prevNumberRef.current });
     }
     if (item.text === "C") {
       prevNumberRef.current = 0; 
