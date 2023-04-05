@@ -42,6 +42,9 @@ export default function CalculatorContainer() {
       if (oper === "÷") {
         return prevNumber / currentNumber;
       }
+      if (oper === ".") {
+        return currentNumber + '.';
+      }
     };
 
     if (item.type === "operator") {
@@ -93,7 +96,7 @@ export default function CalculatorContainer() {
                   Number(calc.inputValue),
                   operate
                 );
-          break;
+          break;    
         default:
           return;
       }
@@ -101,25 +104,45 @@ export default function CalculatorContainer() {
       shouldSetNumberRef.current = true;
       setCalc({
         ...calc,
-        inputValue: prevNumberRef.current === 0 ? "0" : prevNumberRef.current
+        inputValue: prevNumberRef.current === 0 ? "0" : prevNumberRef.current,
       });
     }
+
     if (item.text === "C") {
       prevNumberRef.current = 0;
       calc.inputValue = 0;
       setCalc({ ...calc, inputValue: "0" });
       shouldSetNumberRef.current = false;
     }
+
+    if (item.text === ".") {
+      console.log(
+        'calc.inputValue',
+        calc.inputValue,
+        'prevNumberRef.current',
+        prevNumberRef.current,
+        "type:calc.inputValue",
+        typeof calc.inputValue,
+        "type:prevNumberRef.current",
+        typeof prevNumberRef.current,
+        'shouldSetNumberRef.current',
+        shouldSetNumberRef.current
+      )
+    }
   };
 
-  console.log(
-    calc.inputValue,
-    prevNumberRef.current,
-    "type:calc.inputValue",
-    typeof calc.inputValue,
-    "type:prevNumberRef.current",
-    typeof prevNumberRef.current
-  );
+  // console.log(
+  //   'calc.inputValue',
+  //   calc.inputValue,
+  //   'prevNumberRef.current',
+  //   prevNumberRef.current,
+  //   "type:calc.inputValue",
+  //   typeof calc.inputValue,
+  //   "type:prevNumberRef.current",
+  //   typeof prevNumberRef.current,
+  //   'shouldSetNumberRef.current',
+  //   shouldSetNumberRef.current
+  // );
 
   return <Calculator calc={calc} onClick={onClick} />;
 }
